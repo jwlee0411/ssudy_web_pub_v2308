@@ -1,0 +1,795 @@
+{% extends "base.html" %}
+
+{% block static %}
+   <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/cheatsheet/">
+
+
+
+
+    <link href="/media/default/bootstrap.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+
+{% if user.is_authenticated %}
+{% if post %}
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+<br>
+    <div class="container">
+
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+
+        <h2>{{post.title}}</h2>
+
+        응답가능 기간 : {{ post.date_start|date:'Y.m.d H:i' }} ~ {{ post.date_end|date:'Y.m.d H:i' }}
+        <hr>
+
+        <h7>
+            {{ post.contents | linebreaks}}
+        </h7>
+
+
+
+        </div>
+
+    </div>
+<br>
+{% if post.q1_title != "" and post.q1_title is not null %}
+    <div class="container">
+
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+
+            <h3>{{post.q1_title}}</h3>
+            {% if post.q1_contents != "" and post.q1_contents is not null %}
+            <h7>{{post.q1_contents}}</h7>
+            {% endif %}
+
+            {% if post.q1_type == "객관식(1개만 선택)" %}
+            <br><br>
+                {% if post.q1_choice1 != "" and post.q1_choice1 is not null %}
+                 <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q1_choice1}}" id="q1_radio_choice1" name="q1">
+  <label class="form-check-label" for="q1_radio_choice1">
+    {{post.q1_choice1}}
+  </label>
+</div>                {% endif %}
+            {% if post.q1_choice2 != "" and post.q1_choice2 is not null %}
+                <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q1_choice2}}" id="q1_radio_choice2" name="q1">
+  <label class="form-check-label" for="q1_radio_choice2">
+    {{post.q1_choice2}}
+  </label>
+</div>                {% endif %}
+              {% if post.q1_choice3 != "" and post.q1_choice3 is not null %}
+               <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q1_choice3}}" id="q1_radio_choice3" name="q1">
+  <label class="form-check-label" for="q1_radio_choice3">
+    {{post.q1_choice3}}
+  </label>
+</div>                {% endif %}
+              {% if post.q1_choice4 != "" and post.q1_choice4 is not null %}
+ <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q1_choice4}}" id="q1_radio_choice4" name="q1">
+  <label class="form-check-label" for="q1_radio_choice4">
+    {{post.q1_choice4}}
+  </label>
+</div>
+                {% endif %}
+              {% if post.q1_choice5 != "" and post.q1_choice5 is not null %}
+     <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q1_choice1}}" id="q1_radio_choice5" name="q1">
+  <label class="form-check-label" for="q1_radio_choice5">
+    {{post.q1_choice5}}
+  </label>
+</div>
+                {% endif %}
+              {% if post.q1_choice6 != "" and post.q1_choice6 is not null %}
+<div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q1_choice6}}" id="q1_radio_choice6" name="q1">
+  <label class="form-check-label" for="q1_radio_choice6">
+    {{post.q1_choice6}}
+  </label>
+</div>
+                {% endif %}
+
+            {% endif %}
+
+             {% if post.q1_type == "객관식(여러개 선택 가능)" %}
+            <br><br>
+                {% if post.q1_choice1 != "" and post.q1_choice1 is not null %}
+            <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q1_choice1}}" id="q1_check_choice1" >
+  <label class="form-check-label" for="q1_check_choice1">
+    {{post.q1_choice1}}
+  </label>
+</div>
+
+                {% endif %}
+            {% if post.q1_choice2 != "" and post.q1_choice2 is not null %}
+                            <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q1_choice2}}" id="q1_check_choice2" >
+  <label class="form-check-label" for="q1_check_choice2">
+    {{post.q1_choice2}}
+  </label>
+</div>
+                {% endif %}
+              {% if post.q1_choice3 != "" and post.q1_choice3 is not null %}
+                 <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q1_choice3}}" id="q1_check_choice3">
+  <label class="form-check-label" for="q1_check_choice3">
+    {{post.q1_choice3}}
+  </label>
+</div>                {% endif %}
+              {% if post.q1_choice4 != "" and post.q1_choice4 is not null %}
+                <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q1_choice4}}" id="q1_check_choice4">
+  <label class="form-check-label" for="q1_check_choice4">
+    {{post.q1_choice4}}
+  </label>
+</div>                {% endif %}
+              {% if post.q1_choice5 != "" and post.q1_choice5 is not null %}
+                <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q1_choice5}}" id="q1_check_choice5">
+  <label class="form-check-label" for="q1_check_choice5">
+    {{post.q1_choice5}}
+  </label>
+</div>                {% endif %}
+              {% if post.q1_choice6 != "" and post.q1_choice6 is not null %}
+                 <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q1_choice6}}" id="q1_check_choice6">
+  <label class="form-check-label" for="q1_check_choice6">
+    {{post.q1_choice6}}
+  </label>
+</div>                {% endif %}
+
+            {% endif %}
+
+            {% if post.q1_type == "주관식" %}
+            <br><br>
+             <input name="title" maxlength="300" class="form-control col-4" type="text" placeholder="답변을 입력하세요" aria-label=".form-control-sm example" id="id_title">
+            {% endif %}
+
+
+            </div>
+
+    </div>
+{% endif %}
+
+
+{% if post.q2_title != "" and post.q2_title is not null %}
+    <div class="container">
+
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+
+            <h3>{{post.q2_title}}</h3>
+                        {% if post.q2_contents != "" and post.q2_contents is not null %}
+            <h7>{{post.q2_contents}}</h7>
+            {% endif %}
+
+            {% if post.q2_type == "객관식(1개만 선택)" %}
+            <br><br>
+                {% if post.q2_choice1 != "" and post.q2_choice1 is not null %}
+                 <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q2_choice1}}" id="q2_radio_choice1" name="radio1">
+  <label class="form-check-label" for="q2_radio_choice1">
+    {{post.q2_choice1}}
+  </label>
+</div>                {% endif %}
+            {% if post.q2_choice2 != "" and post.q2_choice2 is not null %}
+                <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q2_choice2}}" id="q2_radio_choice2" name="radio1">
+  <label class="form-check-label" for="q2_radio_choice2">
+    {{post.q2_choice2}}
+  </label>
+</div>                {% endif %}
+              {% if post.q2_choice3 != "" and post.q2_choice3 is not null %}
+               <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q2_choice3}}" id="q2_radio_choice3" name="radio1">
+  <label class="form-check-label" for="q2_radio_choice3">
+    {{post.q2_choice3}}
+  </label>
+</div>                {% endif %}
+              {% if post.q2_choice4 != "" and post.q2_choice4 is not null %}
+ <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q2_choice4}}" id="q2_radio_choice4" name="radio1">
+  <label class="form-check-label" for="q2_radio_choice4">
+    {{post.q2_choice4}}
+  </label>
+</div>
+                {% endif %}
+              {% if post.q2_choice5 != "" and post.q2_choice5 is not null %}
+     <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q2_choice1}}" id="q2_radio_choice5" name="radio1">
+  <label class="form-check-label" for="q2_radio_choice5">
+    {{post.q2_choice5}}
+  </label>
+</div>
+                {% endif %}
+              {% if post.q2_choice6 != "" and post.q2_choice6 is not null %}
+<div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q2_choice6}}" id="q2_radio_choice6" name="radio1">
+  <label class="form-check-label" for="q2_radio_choice6">
+    {{post.q2_choice6}}
+  </label>
+</div>
+                {% endif %}
+
+            {% endif %}
+
+             {% if post.q2_type == "객관식(여러개 선택 가능)" %}
+            <br><br>
+                {% if post.q2_choice1 != "" and post.q2_choice1 is not null %}
+            <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q2_choice1}}" id="q2_check_choice1" >
+  <label class="form-check-label" for="q2_check_choice1">
+    {{post.q2_choice1}}
+  </label>
+</div>
+
+                {% endif %}
+            {% if post.q2_choice2 != "" and post.q2_choice2 is not null %}
+                            <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q2_choice2}}" id="q2_check_choice2" >
+  <label class="form-check-label" for="q2_check_choice2">
+    {{post.q2_choice2}}
+  </label>
+</div>
+                {% endif %}
+              {% if post.q2_choice3 != "" and post.q2_choice3 is not null %}
+                 <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q2_choice3}}" id="q2_check_choice3">
+  <label class="form-check-label" for="q2_check_choice3">
+    {{post.q2_choice3}}
+  </label>
+</div>                {% endif %}
+              {% if post.q2_choice4 != "" and post.q2_choice4 is not null %}
+                <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q2_choice4}}" id="q2_check_choice4">
+  <label class="form-check-label" for="q2_check_choice4">
+    {{post.q2_choice4}}
+  </label>
+</div>                {% endif %}
+              {% if post.q2_choice5 != "" and post.q2_choice5 is not null %}
+                <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q2_choice5}}" id="q2_check_choice5">
+  <label class="form-check-label" for="q2_check_choice5">
+    {{post.q2_choice5}}
+  </label>
+</div>                {% endif %}
+              {% if post.q2_choice6 != "" and post.q2_choice6 is not null %}
+                 <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q2_choice6}}" id="q2_check_choice6">
+  <label class="form-check-label" for="q2_check_choice6">
+    {{post.q2_choice6}}
+  </label>
+</div>                {% endif %}
+
+            {% endif %}
+
+            {% if post.q2_type == "주관식" %}
+            <br><br>
+             <input name="title" maxlength="300" class="form-control col-4" type="text" placeholder="답변을 입력하세요" aria-label=".form-control-sm example" id="id_title2">
+            {% endif %}
+
+
+            </div>
+
+    </div>
+{% endif %}
+
+{% if post.q3_title != "" and post.q3_title is not null %}
+    <div class="container">
+
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+
+            <h3>{{post.q3_title}}</h3>
+                        {% if post.q3_contents != "" and post.q3_contents is not null %}
+            <h7>{{post.q3_contents}}</h7>
+            {% endif %}
+
+            {% if post.q3_type == "객관식(1개만 선택)" %}
+            <br><br>
+                {% if post.q3_choice1 != "" and post.q3_choice1 is not null %}
+                 <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q3_choice1}}" id="q3_radio_choice1" name="radio1">
+  <label class="form-check-label" for="q3_radio_choice1">
+    {{post.q3_choice1}}
+  </label>
+</div>                {% endif %}
+            {% if post.q3_choice2 != "" and post.q3_choice2 is not null %}
+                <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q3_choice2}}" id="q3_radio_choice2" name="radio1">
+  <label class="form-check-label" for="q3_radio_choice2">
+    {{post.q3_choice2}}
+  </label>
+</div>                {% endif %}
+              {% if post.q3_choice3 != "" and post.q3_choice3 is not null %}
+               <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q3_choice3}}" id="q3_radio_choice3" name="radio1">
+  <label class="form-check-label" for="q3_radio_choice3">
+    {{post.q3_choice3}}
+  </label>
+</div>                {% endif %}
+              {% if post.q3_choice4 != "" and post.q3_choice4 is not null %}
+ <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q3_choice4}}" id="q3_radio_choice4" name="radio1">
+  <label class="form-check-label" for="q3_radio_choice4">
+    {{post.q3_choice4}}
+  </label>
+</div>
+                {% endif %}
+              {% if post.q3_choice5 != "" and post.q3_choice5 is not null %}
+     <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q3_choice1}}" id="q3_radio_choice5" name="radio1">
+  <label class="form-check-label" for="q3_radio_choice5">
+    {{post.q3_choice5}}
+  </label>
+</div>
+                {% endif %}
+              {% if post.q3_choice6 != "" and post.q3_choice6 is not null %}
+<div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q3_choice6}}" id="q3_radio_choice6" name="radio1">
+  <label class="form-check-label" for="q3_radio_choice6">
+    {{post.q3_choice6}}
+  </label>
+</div>
+                {% endif %}
+
+            {% endif %}
+
+             {% if post.q3_type == "객관식(여러개 선택 가능)" %}
+            <br><br>
+                {% if post.q3_choice1 != "" and post.q3_choice1 is not null %}
+            <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q3_choice1}}" id="q3_check_choice1" >
+  <label class="form-check-label" for="q3_check_choice1">
+    {{post.q3_choice1}}
+  </label>
+</div>
+
+                {% endif %}
+            {% if post.q3_choice2 != "" and post.q3_choice2 is not null %}
+                            <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q3_choice2}}" id="q3_check_choice2" >
+  <label class="form-check-label" for="q3_check_choice2">
+    {{post.q3_choice2}}
+  </label>
+</div>
+                {% endif %}
+              {% if post.q3_choice3 != "" and post.q3_choice3 is not null %}
+                 <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q3_choice3}}" id="q3_check_choice3">
+  <label class="form-check-label" for="q3_check_choice3">
+    {{post.q3_choice3}}
+  </label>
+</div>                {% endif %}
+              {% if post.q3_choice4 != "" and post.q3_choice4 is not null %}
+                <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q3_choice4}}" id="q3_check_choice4">
+  <label class="form-check-label" for="q3_check_choice4">
+    {{post.q3_choice4}}
+  </label>
+</div>                {% endif %}
+              {% if post.q3_choice5 != "" and post.q3_choice5 is not null %}
+                <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q3_choice5}}" id="q3_check_choice5">
+  <label class="form-check-label" for="q3_check_choice5">
+    {{post.q3_choice5}}
+  </label>
+</div>                {% endif %}
+              {% if post.q3_choice6 != "" and post.q3_choice6 is not null %}
+                 <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q3_choice6}}" id="q3_check_choice6">
+  <label class="form-check-label" for="q3_check_choice6">
+    {{post.q3_choice6}}
+  </label>
+</div>                {% endif %}
+
+            {% endif %}
+
+            {% if post.q3_type == "주관식" %}
+            <br><br>
+             <input name="title" maxlength="300" class="form-control col-4" type="text" placeholder="답변을 입력하세요" aria-label=".form-control-sm example" id="id_title3">
+            {% endif %}
+
+
+            </div>
+
+    </div>
+{% endif %}
+
+{% if post.q4_title != "" and post.q4_title is not null %}
+    <div class="container">
+
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+
+            <h3>{{post.q4_title}}</h3>
+            {% if post.q4_contents != "" and post.q4_contents is not null %}
+            <h7>{{post.q4_contents}}</h7>
+            {% endif %}
+
+            {% if post.q4_type == "객관식(1개만 선택)" %}
+            <br><br>
+                {% if post.q4_choice1 != "" and post.q4_choice1 is not null %}
+                 <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q4_choice1}}" id="q4_radio_choice1" name="radio1">
+  <label class="form-check-label" for="q4_radio_choice1">
+    {{post.q4_choice1}}
+  </label>
+</div>                {% endif %}
+            {% if post.q4_choice2 != "" and post.q4_choice2 is not null %}
+                <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q4_choice2}}" id="q4_radio_choice2" name="radio1">
+  <label class="form-check-label" for="q4_radio_choice2">
+    {{post.q4_choice2}}
+  </label>
+</div>                {% endif %}
+              {% if post.q4_choice3 != "" and post.q4_choice3 is not null %}
+               <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q4_choice3}}" id="q4_radio_choice3" name="radio1">
+  <label class="form-check-label" for="q4_radio_choice3">
+    {{post.q4_choice3}}
+  </label>
+</div>                {% endif %}
+              {% if post.q4_choice4 != "" and post.q4_choice4 is not null %}
+ <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q4_choice4}}" id="q4_radio_choice4" name="radio1">
+  <label class="form-check-label" for="q4_radio_choice4">
+    {{post.q4_choice4}}
+  </label>
+</div>
+                {% endif %}
+              {% if post.q4_choice5 != "" and post.q4_choice5 is not null %}
+     <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q4_choice1}}" id="q4_radio_choice5" name="radio1">
+  <label class="form-check-label" for="q4_radio_choice5">
+    {{post.q4_choice5}}
+  </label>
+</div>
+                {% endif %}
+              {% if post.q4_choice6 != "" and post.q4_choice6 is not null %}
+<div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q4_choice6}}" id="q4_radio_choice6" name="radio1">
+  <label class="form-check-label" for="q4_radio_choice6">
+    {{post.q4_choice6}}
+  </label>
+</div>
+                {% endif %}
+
+            {% endif %}
+
+             {% if post.q4_type == "객관식(여러개 선택 가능)" %}
+            <br><br>
+                {% if post.q4_choice1 != "" and post.q4_choice1 is not null %}
+            <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q4_choice1}}" id="q4_check_choice1" >
+  <label class="form-check-label" for="q4_check_choice1">
+    {{post.q4_choice1}}
+  </label>
+</div>
+
+                {% endif %}
+            {% if post.q4_choice2 != "" and post.q4_choice2 is not null %}
+                            <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q4_choice2}}" id="q4_check_choice2" >
+  <label class="form-check-label" for="q4_check_choice2">
+    {{post.q4_choice2}}
+  </label>
+</div>
+                {% endif %}
+              {% if post.q4_choice3 != "" and post.q4_choice3 is not null %}
+                 <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q4_choice3}}" id="q4_check_choice3">
+  <label class="form-check-label" for="q4_check_choice3">
+    {{post.q4_choice3}}
+  </label>
+</div>                {% endif %}
+              {% if post.q4_choice4 != "" and post.q4_choice4 is not null %}
+                <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q4_choice4}}" id="q4_check_choice4">
+  <label class="form-check-label" for="q4_check_choice4">
+    {{post.q4_choice4}}
+  </label>
+</div>                {% endif %}
+              {% if post.q4_choice5 != "" and post.q4_choice5 is not null %}
+                <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q4_choice5}}" id="q4_check_choice5">
+  <label class="form-check-label" for="q4_check_choice5">
+    {{post.q4_choice5}}
+  </label>
+</div>                {% endif %}
+              {% if post.q4_choice6 != "" and post.q4_choice6 is not null %}
+                 <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q4_choice6}}" id="q4_check_choice6">
+  <label class="form-check-label" for="q4_check_choice6">
+    {{post.q4_choice6}}
+  </label>
+</div>                {% endif %}
+
+            {% endif %}
+
+            {% if post.q4_type == "주관식" %}
+            <br><br>
+             <input name="title" maxlength="300" class="form-control col-4" type="text" placeholder="답변을 입력하세요" aria-label=".form-control-sm example" id="id_title4">
+            {% endif %}
+
+
+            </div>
+
+    </div>
+{% endif %}
+
+
+{% if post.q5_title != "" and post.q5_title is not null %}
+    <div class="container">
+
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+
+            <h3>{{post.q5_title}}</h3>
+            {% if post.q5_contents != "" and post.q5_contents is not null %}
+            <h7>{{post.q5_contents}}</h7>
+            {% endif %}
+
+            {% if post.q5_type == "객관식(1개만 선택)" %}
+            <br><br>
+                {% if post.q5_choice1 != "" and post.q5_choice1 is not null %}
+                 <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q5_choice1}}" id="q5_radio_choice1" name="radio1">
+  <label class="form-check-label" for="q5_radio_choice1">
+    {{post.q5_choice1}}
+  </label>
+</div>                {% endif %}
+            {% if post.q5_choice2 != "" and post.q5_choice2 is not null %}
+                <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q5_choice2}}" id="q5_radio_choice2" name="radio1">
+  <label class="form-check-label" for="q5_radio_choice2">
+    {{post.q5_choice2}}
+  </label>
+</div>                {% endif %}
+              {% if post.q5_choice3 != "" and post.q5_choice3 is not null %}
+               <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q5_choice3}}" id="q5_radio_choice3" name="radio1">
+  <label class="form-check-label" for="q5_radio_choice3">
+    {{post.q5_choice3}}
+  </label>
+</div>                {% endif %}
+              {% if post.q5_choice4 != "" and post.q5_choice4 is not null %}
+ <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q5_choice4}}" id="q5_radio_choice4" name="radio1">
+  <label class="form-check-label" for="q5_radio_choice4">
+    {{post.q5_choice4}}
+  </label>
+</div>
+                {% endif %}
+              {% if post.q5_choice5 != "" and post.q5_choice5 is not null %}
+     <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q5_choice1}}" id="q5_radio_choice5" name="radio1">
+  <label class="form-check-label" for="q5_radio_choice5">
+    {{post.q5_choice5}}
+  </label>
+</div>
+                {% endif %}
+              {% if post.q5_choice6 != "" and post.q5_choice6 is not null %}
+<div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q5_choice6}}" id="q5_radio_choice6" name="radio1">
+  <label class="form-check-label" for="q5_radio_choice6">
+    {{post.q5_choice6}}
+  </label>
+</div>
+                {% endif %}
+
+            {% endif %}
+
+             {% if post.q5_type == "객관식(여러개 선택 가능)" %}
+            <br><br>
+                {% if post.q5_choice1 != "" and post.q5_choice1 is not null %}
+            <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q5_choice1}}" id="q5_check_choice1" >
+  <label class="form-check-label" for="q5_check_choice1">
+    {{post.q5_choice1}}
+  </label>
+</div>
+
+                {% endif %}
+            {% if post.q5_choice2 != "" and post.q5_choice2 is not null %}
+                            <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q5_choice2}}" id="q5_check_choice2" >
+  <label class="form-check-label" for="q5_check_choice2">
+    {{post.q5_choice2}}
+  </label>
+</div>
+                {% endif %}
+              {% if post.q5_choice3 != "" and post.q5_choice3 is not null %}
+                 <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q5_choice3}}" id="q5_check_choice3">
+  <label class="form-check-label" for="q5_check_choice3">
+    {{post.q5_choice3}}
+  </label>
+</div>                {% endif %}
+              {% if post.q5_choice4 != "" and post.q5_choice4 is not null %}
+                <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q5_choice4}}" id="q5_check_choice4">
+  <label class="form-check-label" for="q5_check_choice4">
+    {{post.q5_choice4}}
+  </label>
+</div>                {% endif %}
+              {% if post.q5_choice5 != "" and post.q5_choice5 is not null %}
+                <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q5_choice5}}" id="q5_check_choice5">
+  <label class="form-check-label" for="q5_check_choice5">
+    {{post.q5_choice5}}
+  </label>
+</div>                {% endif %}
+              {% if post.q5_choice6 != "" and post.q5_choice6 is not null %}
+                 <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q5_choice6}}" id="q5_check_choice6">
+  <label class="form-check-label" for="q5_check_choice6">
+    {{post.q5_choice6}}
+  </label>
+</div>                {% endif %}
+
+            {% endif %}
+
+            {% if post.q5_type == "주관식" %}
+            <br><br>
+             <input name="title" maxlength="300" class="form-control col-4" type="text" placeholder="답변을 입력하세요" aria-label=".form-control-sm example" id="id_title5">
+            {% endif %}
+
+
+            </div>
+
+    </div>
+{% endif %}
+
+{% if post.q6_title != "" and post.q6_title is not null %}
+    <div class="container">
+
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+
+            <h3>{{post.q6_title}}</h3>
+            {% if post.q6_contents != "" and post.q6_contents is not null %}
+            <h7>{{post.q6_contents}}</h7>
+            {% endif %}
+
+            {% if post.q6_type == "객관식(1개만 선택)" %}
+            <br><br>
+                {% if post.q6_choice1 != "" and post.q6_choice1 is not null %}
+                 <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q6_choice1}}" id="q6_radio_choice1" name="radio1">
+  <label class="form-check-label" for="q6_radio_choice1">
+    {{post.q6_choice1}}
+  </label>
+</div>                {% endif %}
+            {% if post.q6_choice2 != "" and post.q6_choice2 is not null %}
+                <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q6_choice2}}" id="q6_radio_choice2" name="radio1">
+  <label class="form-check-label" for="q6_radio_choice2">
+    {{post.q6_choice2}}
+  </label>
+</div>                {% endif %}
+              {% if post.q6_choice3 != "" and post.q6_choice3 is not null %}
+               <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q6_choice3}}" id="q6_radio_choice3" name="radio1">
+  <label class="form-check-label" for="q6_radio_choice3">
+    {{post.q6_choice3}}
+  </label>
+</div>                {% endif %}
+              {% if post.q6_choice4 != "" and post.q6_choice4 is not null %}
+ <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q6_choice4}}" id="q6_radio_choice4" name="radio1">
+  <label class="form-check-label" for="q6_radio_choice4">
+    {{post.q6_choice4}}
+  </label>
+</div>
+                {% endif %}
+              {% if post.q6_choice5 != "" and post.q6_choice5 is not null %}
+     <div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q6_choice1}}" id="q6_radio_choice5" name="radio1">
+  <label class="form-check-label" for="q6_radio_choice5">
+    {{post.q6_choice5}}
+  </label>
+</div>
+                {% endif %}
+              {% if post.q6_choice6 != "" and post.q6_choice6 is not null %}
+<div class="form-check">
+  <input class="form-check-input" type="radio" value="{{post.q6_choice6}}" id="q6_radio_choice6" name="radio1">
+  <label class="form-check-label" for="q6_radio_choice6">
+    {{post.q6_choice6}}
+  </label>
+</div>
+                {% endif %}
+
+            {% endif %}
+
+             {% if post.q6_type == "객관식(여러개 선택 가능)" %}
+            <br><br>
+                {% if post.q6_choice1 != "" and post.q6_choice1 is not null %}
+            <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q6_choice1}}" id="q6_check_choice1" >
+  <label class="form-check-label" for="q6_check_choice1">
+    {{post.q6_choice1}}
+  </label>
+</div>
+
+                {% endif %}
+            {% if post.q6_choice2 != "" and post.q6_choice2 is not null %}
+                            <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q6_choice2}}" id="q6_check_choice2" >
+  <label class="form-check-label" for="q6_check_choice2">
+    {{post.q6_choice2}}
+  </label>
+</div>
+                {% endif %}
+              {% if post.q6_choice3 != "" and post.q6_choice3 is not null %}
+                 <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q6_choice3}}" id="q6_check_choice3">
+  <label class="form-check-label" for="q6_check_choice3">
+    {{post.q6_choice3}}
+  </label>
+</div>                {% endif %}
+              {% if post.q6_choice4 != "" and post.q6_choice4 is not null %}
+                <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q6_choice4}}" id="q6_check_choice4">
+  <label class="form-check-label" for="q6_check_choice4">
+    {{post.q6_choice4}}
+  </label>
+</div>                {% endif %}
+              {% if post.q6_choice5 != "" and post.q6_choice5 is not null %}
+                <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q6_choice5}}" id="q6_check_choice5">
+  <label class="form-check-label" for="q6_check_choice5">
+    {{post.q6_choice5}}
+  </label>
+</div>                {% endif %}
+              {% if post.q6_choice6 != "" and post.q6_choice6 is not null %}
+                 <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="{{post.q6_choice6}}" id="q6_check_choice6">
+  <label class="form-check-label" for="q6_check_choice6">
+    {{post.q6_choice6}}
+  </label>
+</div>                {% endif %}
+
+            {% endif %}
+
+            {% if post.q6_type == "주관식" %}
+            <br><br>
+             <input name="title" maxlength="300" class="form-control col-4" type="text" placeholder="답변을 입력하세요" aria-label=".form-control-sm example" id="id_title6">
+            {% endif %}
+
+
+            </div>
+
+    </div>
+{% endif %}
+   <div class="container">
+
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+
+            <h5>본 설문지를 아래 정보와 함께 제출하는 것에 동의합니다.</h5>
+            * 동의하지 않을 경우, 설문에 응답할 수 없습니다.<br>
+            * 다음 정보가 올바르지 않을 경우, <a href="/common/mypage1">회원정보 변경</a> 페이지에서 수정 후 설문에 응답해주세요.
+            <br>
+                <br>동아리명 : {{user.username}}
+                <br>대표자 이름 : {{user.first_name}}
+                <br>대표자 학번 :
+                <br>대표자 학과 :
+                <br>대표자 이메일 : {{user.email}}
+                <br>대표자 전화번호 : {{user.phone_number}}
+                <br>
+            <br>
+            <div style="float:right">
+
+                <button class="btn btn-primary" type="submit">제출</button>
+            </div>
+            <br><br>
+                </div>
+
+    </div>
+ </form>
+
+{% endif %}
+{% endif %}
+        <script src="/media/default/bootstrap.bundle.min.js"></script>
+{% endblock %}

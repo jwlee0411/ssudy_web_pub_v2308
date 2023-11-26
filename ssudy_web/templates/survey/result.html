@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block static %}
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+ <link href="/media/default/bootstrap.min.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+<br>
+{% if user.is_superuser %}
+
+
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+
+{% csrf_token %}
+
+            <div class="my-3 p-3 bg-body rounded shadow-sm">
+
+                <h2>설문조사 결과</h2>
+                <h3>{{post.title}}</h3>
+                응답가능 기간 : {{ post.date_start|date:'Y.m.d H:i' }} ~ {{ post.date_end|date:'Y.m.d H:i' }}
+                <br>
+                <h7>
+            {{ post.contents | linebreaks}}
+                </h7>
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+            <div style="float:right">
+
+                <button class="btn btn-primary" type="submit">저장</button>
+            </div>
+
+        </form>
+
+
+
+    </div>
+
+
+    <br><br>
+
+        <script src="/media/default/bootstrap.bundle.min.js"></script>
+
+
+
+{% else %}
+
+<script>
+
+    alert('권한이 없습니다. 로그인 후 이용해주세요.')
+    window.history.back()
+</script>
+
+{% endif %}
+{% endblock %}

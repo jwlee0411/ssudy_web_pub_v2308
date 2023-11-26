@@ -1,0 +1,302 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block static %}
+
+{% endblock %}
+
+{% block content %}
+
+<script>
+    const inputDate = document.getElementById('date');
+    inputDate.addEventListener('input', restrictWeekdaySelection);
+
+    function restrictWeekdaySelection() {
+      const selectedDate = new Date(inputDate.value);
+      const selectedDayOfWeek = selectedDate.getDay();
+
+      // Monday = 1, Wednesday = 3
+      if (selectedDayOfWeek === 0) {
+        alert("You cannot select a date on Monday or Wednesday.");
+        inputDate.value = '';
+      }
+    }
+
+
+    {% if error %}
+
+    alert('신청 실패했습니다. (해당 시간에 이미 신청된 공동연습실)');
+
+    {% endif %}
+
+    {% if error2 %}
+
+    alert('신청 실패했습니다. (한 주에 6시간을 초과해서 신청)');
+
+    {% endif %}
+
+    {% if success %}
+
+    alert('성공적으로 신청되었습니다.');
+
+    {% endif %}
+</script>
+
+<div class="container" id="main01">
+
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+
+
+            <h2>공동연습실 신청 안내</h2>
+
+            <hr>
+
+            <h7>
+
+                - 공동연습실 신청 기간 : 매월 25일~27일(동아리) / 28일~30일(숭실인), 2월인 경우 25일~26일(동아리) / 27일~28일(숭실인)<br>
+                - 주중 대관시간은 6시간을 최대로 합니다.<br>
+                - 연습실 내에서는 절대 금연이며, 주류 및 음식물의 반입을 절대 금지합니다.<br>
+                - 연습실 기물 및 집기파손 시 파손을 확인 신고한 해당 동아리 직전에 사용 동아리가 모든 책임을 집니다.<br>
+                - 연습실시설의 정상적인 운영 및 관리를 방해하는 행위를 일체 금지하며, 상기 사항을 위반 시, 추후 연습실 대관에 있어서 불이익을 받을 수 있습니다.<br>
+                - 연습실 내부에서는 항상 방역 수칙을 준수해야 합니다.<br>
+                - 준수사항 위반 시 경고 조치, 경고 3회 이상 시 1년간 대관이 불가능합니다.<br>
+                ⚠ <span style="color: red; font-weight: bold;">부정한 방법으로 공동연습실 신청 기능을 악용할 경우 준수사항 위반으로 간주하며, 해당 월의 신청을 전부 무효화합니다.</span><br>
+               <br> - <span style="color: blue; font-weight: bold;">빈 공동연습실 신청은 동아리연합회 카카오톡 채널을 통해 가능합니다.</span><br>
+                - <span style="color: blue; font-weight: bold;">공동연습실을 제외한 타 시설(강의실, 블루큐브, 운동장 등) 신청 방법은 공지사항을 참고해 주시기 바랍니다.</span><br>
+                <br><span style="font-weight: bold; font-size: 14pt">
+                {% if user.is_authenticated %}
+                    {% for group in user.groups.all %}
+                    {% if group.name == "동아리연합회" %}
+                            대관 신청 단체 : {{user.username}}, 대표자 : 동아리연합회 / 02-820-0870 는<br>
+                            앞서 공지한 규정과 공지사항을 숙지하고 공동연습실 대관을 신청하는 것에 동의합니다.<br>
+                            동의를 거부하는 경우 공동연습실 신청을 할 수 없습니다.</span>
+                    {% endif %}
+                    {% if group.name == "동아리" %}
+                            대관 신청 단체 : {{user.username}}, 대표자 : {{user.first_name}} / {{user.phone_number}} 는<br>
+                            앞서 공지한 규정과 공지사항을 숙지하고 공동연습실 대관을 신청하는 것에 동의합니다.<br>
+                            동의를 거부하는 경우 공동연습실 신청을 할 수 없습니다.</span>
+                    {% endif %}
+                    {% if group.name == "숭실인" %}
+                            대관 신청인 : {{user.first_name}} / {{user.phone_number}} 는<br>
+                            앞서 공지한 규정과 공지사항을 숙지하고 공동연습실 대관을 신청하는 것에 동의합니다.<br>
+                            동의를 거부하는 경우 공동연습실 신청을 할 수 없습니다.</span>
+                    {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+
+            </h7>
+    {% if field.errors %}
+    <span style="color: red">{{ form.errors }} </span>
+    {% endif %}
+            <br>
+            <br>
+
+
+            {% if reserve.open %}
+            현재 신청가능 기간입니다.<br><span style="color: blue; font-weight: bold;">[{% if user.is_authenticated %}
+  {% for group in user.groups.all %}
+    {{ group.name }}
+  {% endfor %}
+{% endif %}]</span> 신청가능 기간 : <div class="timeStart">{{reserve.startDate}} 00:00 ~ {{reserve.endDate}} 23:59</div>
+            {% else %}
+            <br><br>
+      <div class="timeNot"><span style="color: blue; font-weight: bold;">[{% if user.is_authenticated %}
+  {% for group in user.groups.all %}
+    {{ group.name }}
+  {% endfor %}
+{% endif %}]</span> 신청가능 기간이 아닙니다.</div><br><span style="color: blue; font-weight: bold;">[{% if user.is_authenticated %}
+  {% for group in user.groups.all %}
+    {{ group.name }}
+  {% endfor %}
+{% endif %}]</span> 신청가능 기간 : <div class="timeStart">{{reserve.startDate}} 00:00 ~ {{reserve.endDate}} 23:59</div>
+            {% endif %}
+
+
+        </div>
+
+
+    </div>
+
+
+{% if reserve.open %}
+
+
+
+<form method="post">
+    {% csrf_token %}
+    <div class="container-fluid px-0 px-sm-4 mx-auto" id="main03">
+        <div class="row justify-content-center mx-0">
+            <div class="col-lg-10">
+                <div class="card border-0">
+                    <div class="card-header">
+                        <div class="content">
+                            날짜 선택
+                            <label for="date">
+                            <input type="date" id="date" name="date" min="{{ reserve.startCalendar }}" max="{{ reserve.endCalendar }}" value="{{ reserve.startCalendar }}">
+                            </label>
+                            {% if user.is_superuser %}
+                                                            <input type="text" name="user_id" class="form-control" value="." >
+                                <input type="text" name="user_name" class="form-control" value=".">
+                            {% else %}
+                                                            <input type="text" name="user_id" class="form-control" style="display: none" value="{{user.username}}" >
+                                <input type="text" name="user_name" class="form-control" style="display: none" value="{{user.phone_number}}">
+                            {% endif %}
+
+                            <div class="card-body p-3 p-sm-5">
+                                <div class="row text-center mx-0">
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                        <h3>공동연습실 1</h3>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                        <h3>공동연습실 2</h3>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                        <h3>공동연습실 3</h3>
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                        <input type="radio" name="time" value="1_1">09:00 ~ 10:00
+
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                        <input type="radio" name="time" value="2_1">09:00 ~ 10:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                        <input type="radio" name="time" value="3_1">09:00 ~ 10:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                        <input type="radio" name="time" value="1_2">10:00 ~ 11:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                        <input type="radio" name="time" value="2_2">10:00 ~ 11:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                        <input type="radio" name="time" value="3_2">10:00 ~ 11:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                        <input type="radio" name="time" value="1_3">11:00 ~ 12:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                        <input type="radio" name="time" value="2_3">11:00 ~ 12:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                        <input type="radio" name="time" value="3_3">11:00 ~ 12:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                        <input type="radio" name="time" value="1_4">12:00 ~ 13:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                        <input type="radio" name="time" value="2_4">12:00 ~ 13:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="3_4">12:00 ~ 13:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="1_5">13:00 ~ 14:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="2_5">13:00 ~ 14:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="3_5">13:00 ~ 14:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="1_6">14:00 ~ 15:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="2_6">14:00 ~ 15:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="3_6">14:00 ~ 15:00
+                                    </div>
+                                      <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="1_7">15:00 ~ 16:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="2_7">15:00 ~ 16:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="3_7">15:00 ~ 16:00
+                                    </div>
+                                  <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="1_8">16:00 ~ 17:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="2_8">16:00 ~ 17:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="3_8">16:00 ~ 17:00
+                                    </div>
+                                        <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="1_9">17:00 ~ 18:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="2_9">17:00 ~ 18:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="3_9">17:00 ~ 18:00
+                                    </div>
+                                              <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="1_10">18:00 ~ 19:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="2_10">18:00 ~ 19:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="3_10">18:00 ~ 19:00
+                                    </div>
+                                              <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="1_11">19:00 ~ 20:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="2_11">19:00 ~ 20:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="3_11">19:00 ~ 20:00
+                                    </div>
+                                                   <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="1_12">20:00 ~ 21:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="2_12">20:00 ~ 21:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="3_12">20:00 ~ 21:00
+                                    </div>
+                                       <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="1_13">21:00 ~ 22:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="2_13">21:00 ~ 22:00
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-12 my-1 px-2">
+                                      <input type="radio" name="time" value="3_13">21:00 ~ 22:00
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                         <div class="d-inline-block mx-auto">
+                                <button class="btn btn-primary"  type="submit" name="submit">신청</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</form>
+{% else %}
+{% endif %}
+
+
+    <script src="/media/default/bootstrap.bundle.min.js"></script>
+
+
+{% endblock %}

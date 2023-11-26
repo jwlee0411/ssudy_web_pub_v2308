@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block static %}
+    <script>
+
+    </script>
+{% endblock %}
+
+{% block content %}
+        <br>
+
+    <div class="container" id="main01">
+
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+
+
+            <h2>공동연습실 관리자 페이지</h2>
+
+            <hr>
+
+
+
+                - 공동연습실 관리자 페이지입니다.<br>
+                - 실수로 [취소] 버튼을 누를 경우 해당 내역의 복구는 불가능하니, 신중히 작업해주시기 바랍니다.<br><br>
+
+
+
+        </div>
+
+
+    </div>
+
+    <div class="container">
+            <br><br>
+       <h2 id = "titlefront">신청 내역</h2>
+
+        <br>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>연습실번호</th>
+                <th>일자</th>
+                <th>시간</th>
+                <th>이용자</th>
+                <th>연락처</th>
+                <th>예약 시간</th>
+                <th>취소</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% for post in posts %}
+
+
+
+            <tr>
+                <td>{{ post.room_number }}</td>
+                <td>{{ post.date }}</td>
+                <td>{{ post.time }}</td>
+                <td>{{ post.user_id }}</td>
+                <td>{{ post.user_name }}</td>
+                <td>{{ post.register_time }}</td>
+                <td style="text-decoration:none; color:red;"><a href="/book/delete/{{post.id}}">취소</a></td>
+<!--                <td>{{ post.board }}</td>-->
+
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+
+
+
+
+
+    </div>
+
+        <script src="/media/default/bootstrap.bundle.min.js"></script>
+
+{% endblock %}

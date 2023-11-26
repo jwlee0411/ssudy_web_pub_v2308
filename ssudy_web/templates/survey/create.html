@@ -1,0 +1,352 @@
+{% extends "base.html" %}
+
+{% block static %}
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+ <link href="/media/default/bootstrap.min.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+<br>
+{% if user.is_superuser %}
+
+
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+
+{% csrf_token %}
+
+            <div class="my-3 p-3 bg-body rounded shadow-sm">
+
+                <h2>설문조사 작성</h2>
+                <br>
+
+
+                <div>
+
+
+                </div>
+                <div class="mb-3">
+                    <input name="title" maxlength="100" class="form-control col-4" type="text" placeholder="설문 제목을 입력하세요." aria-label=".form-control-sm example" required id="id_title">
+                </div>
+
+                <div class="mb-3">
+                    <textarea class="form-control form-control-sm" rows="15" placeholder="제목 바로 아래 표시할 내용을 입력하세요." name="contents" id="id_contents"></textarea>
+                </div>
+
+
+                <h6>시작 날짜</h6>
+                <label for="date_start">
+                            <input type="date" id="date_start" name="date_start" required >
+                            </label>
+                <br><br>
+                 <h6>종료 날짜</h6>
+                     <label for="date_end">
+                            <input type="date" id="date_end" name="date_end" required >
+                            </label>
+                <br>
+                * 설문 응답가능 시간 : 시작일자 00시 ~ 종료일자 00시까지(종료 전일 23시 59분까지)
+            <br><br>
+
+
+                 <h4>설문 1</h4>
+
+                <input type="checkbox" name="q1_required"> 필수
+                 <div class="mb-3">
+                    <input name="q1_title" maxlength="300" class="form-control col-4" type="text" placeholder="설문 제목을 입력하세요." aria-label=".form-control-sm example" id="id_q1_title">
+                </div>
+                <div class="mb-3">
+                    <input name="q1_contents" maxlength="300" class="form-control col-4" type="text" placeholder="자세한 설명이 필요할 경우 이 란을 사용하세요.(선택사항)" aria-label=".form-control-sm example" id="id_q1_contents">
+                </div>
+
+
+                <div class="mb-3 col-md-6 col-3">
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-lg example" name="q1_type">
+                        <option selected value="사용안함">설문 종류</option>
+                        <option value="객관식(1개만 선택)">객관식(1개만 선택)</option>
+                        <option value="객관식(여러개 선택 가능)">객관식(여러개 선택 가능)</option>
+                        <option value="주관식">주관식</option>
+                    </select>
+                </div>
+
+                 <div class="mb-3">
+                    <input name="q1_choice1" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 1번째 빈칸" aria-label=".form-control-sm example" id="id_q1_choice1">
+                </div>
+
+                  <div class="mb-3">
+                    <input name="q1_choice2" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 2번째 빈칸" aria-label=".form-control-sm example" id="id_q1_choice2">
+                </div>
+
+                  <div class="mb-3">
+                    <input name="q1_choice3" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 3번째 빈칸" aria-label=".form-control-sm example" id="id_q1_choice3">
+                </div>
+
+                  <div class="mb-3">
+                    <input name="q1_choice4" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 4번째 빈칸" aria-label=".form-control-sm example" id="id_q1_choice4">
+                </div>
+<div class="mb-3">
+                    <input name="q1_choice5" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 5번째 빈칸" aria-label=".form-control-sm example" id="id_q1_choice5">
+                </div>
+
+                <div class="mb-3">
+                    <input name="q1_choice6" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 6번째 빈칸" aria-label=".form-control-sm example" id="id_q1_choice6">
+                </div>
+                <br><br>
+
+
+                 <h4>설문 2</h4>
+
+                <input type="checkbox" name="q2_required"> 필수
+                 <div class="mb-3">
+                    <input name="q2_title" maxlength="300" class="form-control col-4" type="text" placeholder="설문 제목을 입력하세요." aria-label=".form-control-sm example" id="id_q2_title">
+                </div>
+                <div class="mb-3">
+                    <input name="q2_contents" maxlength="300" class="form-control col-4" type="text" placeholder="자세한 설명이 필요할 경우 이 란을 사용하세요.(선택사항)" aria-label=".form-control-sm example" id="id_q2_contents">
+                </div>
+
+
+                <div class="mb-3 col-md-6 col-3">
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-lg example" name="q2_type">
+                        <option selected value="사용안함">설문 종류</option>
+                        <option value="객관식(1개만 선택)">객관식(1개만 선택)</option>
+                        <option value="객관식(여러개 선택 가능)">객관식(여러개 선택 가능)</option>
+                        <option value="주관식">주관식</option>
+                    </select>
+                </div>
+
+                 <div class="mb-3">
+                    <input name="q2_choice1" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 1번째 빈칸" aria-label=".form-control-sm example" id="id_q2_choice1">
+                </div>
+
+                  <div class="mb-3">
+                    <input name="q2_choice2" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 2번째 빈칸" aria-label=".form-control-sm example" id="id_q2_choice2">
+                </div>
+
+                  <div class="mb-3">
+                    <input name="q2_choice3" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 3번째 빈칸" aria-label=".form-control-sm example" id="id_q2_choice3">
+                </div>
+
+                  <div class="mb-3">
+                    <input name="q2_choice4" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 4번째 빈칸" aria-label=".form-control-sm example" id="id_q2_choice4">
+                </div>
+<div class="mb-3">
+                    <input name="q2_choice5" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 5번째 빈칸" aria-label=".form-control-sm example" id="id_q2_choice5">
+                </div>
+
+                <div class="mb-3">
+                    <input name="q2_choice6" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 6번째 빈칸" aria-label=".form-control-sm example" id="id_q2_choice6">
+                </div>
+                <br><br>
+                 <h4>설문 3</h4>
+
+                <input type="checkbox" name="q3_required"> 필수
+                 <div class="mb-3">
+                    <input name="q3_title" maxlength="300" class="form-control col-4" type="text" placeholder="설문 제목을 입력하세요." aria-label=".form-control-sm example" id="id_q3_title">
+                </div>
+                <div class="mb-3">
+                    <input name="q3_contents" maxlength="300" class="form-control col-4" type="text" placeholder="자세한 설명이 필요할 경우 이 란을 사용하세요.(선택사항)" aria-label=".form-control-sm example" id="id_q3_contents">
+                </div>
+
+
+                <div class="mb-3 col-md-6 col-3">
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-lg example" name="q3_type">
+                        <option selected value="사용안함">설문 종류</option>
+                        <option value="객관식(1개만 선택)">객관식(1개만 선택)</option>
+                        <option value="객관식(여러개 선택 가능)">객관식(여러개 선택 가능)</option>
+                        <option value="주관식">주관식</option>
+                    </select>
+                </div>
+
+                 <div class="mb-3">
+                    <input name="q3_choice1" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 1번째 빈칸" aria-label=".form-control-sm example" id="id_q3_choice1">
+                </div>
+
+                  <div class="mb-3">
+                    <input name="q3_choice2" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 2번째 빈칸" aria-label=".form-control-sm example" id="id_q3_choice2">
+                </div>
+
+                  <div class="mb-3">
+                    <input name="q3_choice3" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 3번째 빈칸" aria-label=".form-control-sm example" id="id_q3_choice3">
+                </div>
+
+                  <div class="mb-3">
+                    <input name="q3_choice4" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 4번째 빈칸" aria-label=".form-control-sm example" id="id_q3_choice4">
+                </div>
+<div class="mb-3">
+                    <input name="q3_choice5" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 5번째 빈칸" aria-label=".form-control-sm example" id="id_q3_choice5">
+                </div>
+
+                <div class="mb-3">
+                    <input name="q3_choice6" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 6번째 빈칸" aria-label=".form-control-sm example" id="id_q3_choice6">
+                </div>
+                <br><br>
+
+
+                 <h4>설문 4</h4>
+
+                <input type="checkbox" name="q4_required"> 필수
+                 <div class="mb-3">
+                    <input name="q4_title" maxlength="300" class="form-control col-4" type="text" placeholder="설문 제목을 입력하세요." aria-label=".form-control-sm example" id="id_q4_title">
+                </div>
+                <div class="mb-3">
+                    <input name="q4_contents" maxlength="300" class="form-control col-4" type="text" placeholder="자세한 설명이 필요할 경우 이 란을 사용하세요.(선택사항)" aria-label=".form-control-sm example" id="id_q4_contents">
+                </div>
+
+
+                <div class="mb-3 col-md-6 col-3">
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-lg example" name="q4_type">
+                        <option selected value="사용안함">설문 종류</option>
+                        <option value="객관식(1개만 선택)">객관식(1개만 선택)</option>
+                        <option value="객관식(여러개 선택 가능)">객관식(여러개 선택 가능)</option>
+                        <option value="주관식">주관식</option>
+                    </select>
+                </div>
+
+                 <div class="mb-3">
+                    <input name="q4_choice1" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 1번째 빈칸" aria-label=".form-control-sm example" id="id_q4_choice1">
+                </div>
+
+                  <div class="mb-3">
+                    <input name="q4_choice2" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 2번째 빈칸" aria-label=".form-control-sm example" id="id_q4_choice2">
+                </div>
+
+                  <div class="mb-3">
+                    <input name="q4_choice3" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 3번째 빈칸" aria-label=".form-control-sm example" id="id_q4_choice3">
+                </div>
+
+                  <div class="mb-3">
+                    <input name="q4_choice4" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 4번째 빈칸" aria-label=".form-control-sm example" id="id_q4_choice4">
+                </div>
+<div class="mb-3">
+                    <input name="q4_choice5" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 5번째 빈칸" aria-label=".form-control-sm example" id="id_q4_choice5">
+                </div>
+
+                <div class="mb-3">
+                    <input name="q4_choice6" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 6번째 빈칸" aria-label=".form-control-sm example" id="id_q4_choice6">
+                </div>
+                <br><br>
+                 <h4>설문 5</h4>
+
+                <input type="checkbox" name="q1_required"> 필수
+                 <div class="mb-3">
+                    <input name="q5_title" maxlength="300" class="form-control col-4" type="text" placeholder="설문 제목을 입력하세요." aria-label=".form-control-sm example" id="id_q5_title">
+                </div>
+                <div class="mb-3">
+                    <input name="q5_contents" maxlength="300" class="form-control col-4" type="text" placeholder="자세한 설명이 필요할 경우 이 란을 사용하세요.(선택사항)" aria-label=".form-control-sm example" id="id_q5_contents">
+                </div>
+
+
+                <div class="mb-3 col-md-6 col-3">
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-lg example" name="q5_type">
+                        <option selected value="사용안함">설문 종류</option>
+                        <option value="객관식(1개만 선택)">객관식(1개만 선택)</option>
+                        <option value="객관식(여러개 선택 가능)">객관식(여러개 선택 가능)</option>
+                        <option value="주관식">주관식</option>
+                    </select>
+                </div>
+
+                 <div class="mb-3">
+                    <input name="q5_choice1" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 1번째 빈칸" aria-label=".form-control-sm example" id="id_q5_choice1">
+                </div>
+
+                  <div class="mb-3">
+                    <input name="q5_choice2" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 2번째 빈칸" aria-label=".form-control-sm example" id="id_q5_choice2">
+                </div>
+
+                  <div class="mb-3">
+                    <input name="q5_choice3" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 3번째 빈칸" aria-label=".form-control-sm example" id="id_q5_choice3">
+                </div>
+
+                  <div class="mb-3">
+                    <input name="q5_choice4" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 4번째 빈칸" aria-label=".form-control-sm example" id="id_q5_choice4">
+                </div>
+<div class="mb-3">
+                    <input name="q5_choice5" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 5번째 빈칸" aria-label=".form-control-sm example" id="id_q5_choice5">
+                </div>
+
+                <div class="mb-3">
+                    <input name="q5_choice6" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 6번째 빈칸" aria-label=".form-control-sm example" id="id_q5_choice6">
+                </div>
+                <br><br>
+
+ <h4>설문 6</h4>
+
+                <input type="checkbox" name="q6_required"> 필수
+                 <div class="mb-3">
+                    <input name="q6_title" maxlength="300" class="form-control col-4" type="text" placeholder="설문 제목을 입력하세요." aria-label=".form-control-sm example" id="id_q6_title">
+                </div>
+                <div class="mb-3">
+                    <input name="q6_contents" maxlength="300" class="form-control col-4" type="text" placeholder="자세한 설명이 필요할 경우 이 란을 사용하세요.(선택사항)" aria-label=".form-control-sm example" id="id_q6_contents">
+                </div>
+
+
+                <div class="mb-3 col-md-6 col-3">
+                    <select class="form-select form-select-sm mb-3" aria-label=".form-select-lg example" name="q6_type">
+                        <option selected value="사용안함">설문 종류</option>
+                        <option value="객관식(1개만 선택)">객관식(1개만 선택)</option>
+                        <option value="객관식(여러개 선택 가능)">객관식(여러개 선택 가능)</option>
+                        <option value="주관식">주관식</option>
+                    </select>
+                </div>
+
+                 <div class="mb-3">
+                    <input name="q6_choice1" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 1번째 빈칸" aria-label=".form-control-sm example" id="id_q6_choice1">
+                </div>
+
+                  <div class="mb-3">
+                    <input name="q6_choice2" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 2번째 빈칸" aria-label=".form-control-sm example" id="id_q6_choice2">
+                </div>
+
+                  <div class="mb-3">
+                    <input name="q6_choice3" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 3번째 빈칸" aria-label=".form-control-sm example" id="id_q6_choice3">
+                </div>
+
+                  <div class="mb-3">
+                    <input name="q6_choice4" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 4번째 빈칸" aria-label=".form-control-sm example" id="id_q6_choice4">
+                </div>
+<div class="mb-3">
+                    <input name="q6_choice5" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 5번째 빈칸" aria-label=".form-control-sm example" id="id_q6_choice5">
+                </div>
+
+                <div class="mb-3">
+                    <input name="q6_choice6" maxlength="300" class="form-control col-4" type="text" placeholder="객관식 6번째 빈칸" aria-label=".form-control-sm example" id="id_q6_choice6">
+                </div>
+                <br><br>
+
+            </div>
+
+
+
+
+
+
+            <div style="float:right">
+
+                <button class="btn btn-primary" type="submit">저장</button>
+            </div>
+
+        </form>
+
+
+
+    </div>
+
+
+    <br><br>
+
+        <script src="/media/default/bootstrap.bundle.min.js"></script>
+
+
+
+{% else %}
+
+<script>
+
+    alert('권한이 없습니다. 로그인 후 이용해주세요.')
+    window.history.back()
+</script>
+
+{% endif %}
+{% endblock %}

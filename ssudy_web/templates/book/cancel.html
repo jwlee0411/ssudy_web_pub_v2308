@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block static %}
+    <script>
+
+    </script>
+{% endblock %}
+
+{% block content %}
+        <br>
+
+    <div class="container" id="main01">
+
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+
+
+            <h2>신청 취소 안내</h2>
+
+            <hr>
+
+            <h7>
+
+                - 공동연습실 신청 취소는 신청기한 내에만 가능합니다.<br>
+                - 공동연습실 예약 및 취소를 계속해서 반복하는 경우 사이트 이용 및 공동연습실 예약을 제한할 수 있습니다.<br><br><br>
+                 <div class="timeNot"><span style="color: blue; font-weight: bold;">[{% if user.is_authenticated %}
+  {% for group in user.groups.all %}
+    {{ group.name }}
+  {% endfor %}
+{% endif %}]</span> 신청취소 기간이 아닙니다.</div><br><span style="color: blue; font-weight: bold;">[{% if user.is_authenticated %}
+  {% for group in user.groups.all %}
+    {{ group.name }}
+  {% endfor %}
+{% endif %}]</span> 신청취소 기간 : <div class="timeStart">{{reserve.startDate}} 00:00 ~ {{reserve.endDate}} 23:59</div>
+
+            </h7>
+
+
+
+
+        </div>
+
+
+    </div>
+
+    <div class="container">
+            <br><br>
+       <h2 id = "titlefront">신청 내역</h2>
+
+        <br>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>연습실번호</th>
+                <th>일자</th>
+                <th>시간</th>
+                <th>이용자</th>
+                <th>연락처</th>
+                <th>예약 시간</th>
+                <th>취소</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+
+
+
+        {% for post in posts %}
+            {% if post.user_id == user.username %}
+
+
+
+            <tr>
+                <td>{{ post.room_number }}</td>
+                <td>{{ post.date }}</td>
+                <td>{{ post.time }}</td>
+                <td>{{ post.user_id }}</td>
+                <td>{{ post.user_name }}</td>
+                <td>{{ post.register_time }}</td>
+<!--                <td>{{ post.board }}</td>-->
+
+
+                {% if post.date < current_time %}
+                    <td>이용완료</td>
+                {% elif post.date == current_time %}
+                    <td style="color:green;">이용중</td>
+                {% elif current_day <= 27 and current_day >= 25 %}
+                    <td><a href="/book/delete/{{post.id}}">취소가능</a></td>
+                {% else %}
+                    <td style="text-decoration:none; color:red;">취소불가</td>
+                {% endif %}
+            </tr>
+                {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+
+
+
+
+
+    </div>
+
+        <script src="/media/default/bootstrap.bundle.min.js"></script>
+
+
+{% endblock %}
